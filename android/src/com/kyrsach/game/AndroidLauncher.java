@@ -1,10 +1,10 @@
-package com.kyrsovaya.maa;
+package com.kyrsach.game;
 
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.kyrsovaya.maa.Main;
+import com.kyrsach.game.Main;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override

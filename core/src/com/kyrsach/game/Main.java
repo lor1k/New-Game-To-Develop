@@ -1,4 +1,4 @@
-package com.kyrsovaya.maa;
+package com.kyrsach.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
