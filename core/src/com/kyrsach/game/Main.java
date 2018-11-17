@@ -9,7 +9,6 @@ import com.kyrsach.game.view.GameScreen;
 
 public class Main extends Game {
 
-    private float x = 50;
     private Screen gameScreen;
 
 	@Override
