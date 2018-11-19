@@ -65,11 +65,14 @@ public class GameScreen implements Screen {
         for (int i = 0; i < a; i++){// Тут до count в оригинале
             batch.draw(tree, trees[i].getX(), trees[i].getY(), tree_width,tree_height);
         }
-
         if(a == count-1){
             a = count - 1;
         } else{
             a++;
+        }
+        if(Gdx.input.isTouched(0)){
+            trees[0].setX(Gdx.input.getX(0));
+            trees[0].setY(Gdx.graphics.getHeight()-Gdx.input.getY(0));
         }
         batch.end();
     }

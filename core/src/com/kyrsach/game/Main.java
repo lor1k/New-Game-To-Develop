@@ -11,6 +11,7 @@ public class Main extends Game {
 
     private Screen gameScreen;
 
+
 	@Override
 	public void create() {
         if (Gdx.app.getType().equals(Application.ApplicationType.Android)) {
