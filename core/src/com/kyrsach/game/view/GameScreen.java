@@ -11,12 +11,17 @@ import com.kyrsach.game.model.Tree;
 
 import java.util.Random;
 
+
+
 public class GameScreen implements Screen {
 
+    private Player[] players;
+    private Icon[] IconLeft;
     private Texture texture;
     private Texture sidebarleft;
     private Texture sidebarright;
     private Texture worker;
+    private Texture warrior;
     private Texture tree;
     private SpriteBatch batch;
     private GameObject[] trees;
@@ -30,6 +35,8 @@ public class GameScreen implements Screen {
     private int a = 0;
     private BitmapFont FontRed1;
     private String str;
+    boolean WorkerLeft = false;
+
 
     @Override
     public void show() {
@@ -42,8 +49,12 @@ public class GameScreen implements Screen {
         sidebarleft = new Texture(Gdx.files.internal("side_bar_left.png"));
         sidebarright = new Texture(Gdx.files.internal("side_bar_right.png"));
         worker = new Texture(Gdx.files.internal("worker.png"));
+        warrior = new Texture(Gdx.files.internal("warrior.png"));
         tree = new Texture(Gdx.files.internal("tree.png"));
         trees = new Tree[count];
+        players = new Player[2];
+        IconLeft = new Icon[3];
+        str = "gjgh";
         for (int i = 0; i < count; i++){
             trees[i] = new Tree(left_spawn_border+(float)Math.random()*(right_spawn_border - tree_width),bottom_spawn_border+(float)Math.random()*(top_spawn_border - tree_height),tree.getWidth(), worker.getHeight());
         }
@@ -58,23 +69,40 @@ public class GameScreen implements Screen {
         batch.begin();
         batch.draw(texture, 0, 0);
         batch.draw(sidebarleft, 0,0);
-        str = "FPS: " + 1/delta;
         batch.draw(sidebarright,Gdx.graphics.getWidth() - sidebarright.getWidth(),0);
         batch.draw(worker, Gdx.graphics.getWidth()/100f*1f, Gdx.graphics.getHeight()/100f*30f);
+        batch.draw(warrior, Gdx.graphics.getWidth()/100f*1f, Gdx.graphics.getHeight()/100f*50f);
         FontRed1.draw(batch, str, 10, 20);
         for (int i = 0; i < a; i++){// Тут до count в оригинале
             batch.draw(tree, trees[i].getX(), trees[i].getY(), tree_width,tree_height);
         }
+
         if(a == count-1){
             a = count - 1;
         } else{
             a++;
         }
-        if(Gdx.input.isTouched(0)){
-            trees[0].setX(Gdx.input.getX(0));
-            trees[0].setY(Gdx.graphics.getHeight()-Gdx.input.getY(0));
+        if(Gdx.input.justTouched()){
+            str = Gdx.input.getX() + ">" + Gdx.graphics.getWidth()/100f*1f + "&&" +
+                    Gdx.input.getX() + "<" + (Gdx.graphics.getWidth()/100f*1f + worker.getWidth()) + "&&" +
+                    Gdx.input.getY() + ">" + Gdx.graphics.getHeight()/100f*30f + "&&" +
+                    Gdx.input.getY() + "<" + (Gdx.graphics.getHeight()/100f*30f + worker.getHeight());
+            if (Gdx.input.getX() > Gdx.graphics.getWidth()/100f*1f &&
+                Gdx.input.getX() < (Gdx.graphics.getWidth()/100f*1f + worker.getWidth()) &&
+                Gdx.input.getY() > Gdx.graphics.getHeight()/100f*30f &&
+                Gdx.input.getY() - 200 < (Gdx.graphics.getHeight()/100f*30f + worker.getHeight())){
+                str = WorkerLeft + " " + !WorkerLeft;
+                WorkerLeft = Icon.toggleBool(WorkerLeft);kod govno
+                if(WorkerLeft){
+                    worker = new Texture(Gdx.files.internal("worker_selected.png"));
+                } else {
+                    worker = new Texture(Gdx.files.internal("worker.png"));
+                }
+            }
         }
+
         batch.end();
+
     }
 
     @Override
