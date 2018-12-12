@@ -35,7 +35,7 @@ public class GameScreen implements Screen {
     private int a = 0;
     private BitmapFont FontRed1;
     private String str;
-    boolean WorkerLeft = false;
+    private boolean checker;
 
 
     @Override
@@ -53,8 +53,14 @@ public class GameScreen implements Screen {
         tree = new Texture(Gdx.files.internal("tree.png"));
         trees = new Tree[count];
         players = new Player[2];
-        IconLeft = new Icon[3];
+        IconLeft = new Icon[2];
+        Gdx.app.log("SUPER", "READY");
+        IconLeft[0] = new Icon(Gdx.graphics.getWidth()/100f*1f, Gdx.graphics.getHeight()/100f*30f, worker.getWidth(), worker.getHeight(), "worker.png", "worker_selected.png");
+        Gdx.app.log("SUPER", "READY");
+        IconLeft[1] = new Icon(Gdx.graphics.getWidth()/100f*1f, Gdx.graphics.getHeight()/100f*50f, warrior.getWidth(), warrior.getHeight(), "warrior.png", "warrior_selected.png");
+        Gdx.app.log("SUPER", "READY");
         str = "gjgh";
+
         for (int i = 0; i < count; i++){
             trees[i] = new Tree(left_spawn_border+(float)Math.random()*(right_spawn_border - tree_width),bottom_spawn_border+(float)Math.random()*(top_spawn_border - tree_height),tree.getWidth(), worker.getHeight());
         }
@@ -70,8 +76,6 @@ public class GameScreen implements Screen {
         batch.draw(texture, 0, 0);
         batch.draw(sidebarleft, 0,0);
         batch.draw(sidebarright,Gdx.graphics.getWidth() - sidebarright.getWidth(),0);
-        batch.draw(worker, Gdx.graphics.getWidth()/100f*1f, Gdx.graphics.getHeight()/100f*30f);
-        batch.draw(warrior, Gdx.graphics.getWidth()/100f*1f, Gdx.graphics.getHeight()/100f*50f);
         FontRed1.draw(batch, str, 10, 20);
         for (int i = 0; i < a; i++){// Тут до count в оригинале
             batch.draw(tree, trees[i].getX(), trees[i].getY(), tree_width,tree_height);
@@ -82,23 +86,26 @@ public class GameScreen implements Screen {
         } else{
             a++;
         }
+
         if(Gdx.input.justTouched()){
-            str = Gdx.input.getX() + ">" + Gdx.graphics.getWidth()/100f*1f + "&&" +
-                    Gdx.input.getX() + "<" + (Gdx.graphics.getWidth()/100f*1f + worker.getWidth()) + "&&" +
-                    Gdx.input.getY() + ">" + Gdx.graphics.getHeight()/100f*30f + "&&" +
-                    Gdx.input.getY() + "<" + (Gdx.graphics.getHeight()/100f*30f + worker.getHeight());
-            if (Gdx.input.getX() > Gdx.graphics.getWidth()/100f*1f &&
-                Gdx.input.getX() < (Gdx.graphics.getWidth()/100f*1f + worker.getWidth()) &&
-                Gdx.input.getY() > Gdx.graphics.getHeight()/100f*30f &&
-                Gdx.input.getY() - 200 < (Gdx.graphics.getHeight()/100f*30f + worker.getHeight())){
-                str = WorkerLeft + " " + !WorkerLeft;
-                WorkerLeft = Icon.toggleBool(WorkerLeft);kod govno
-                if(WorkerLeft){
-                    worker = new Texture(Gdx.files.internal("worker_selected.png"));
-                } else {
-                    worker = new Texture(Gdx.files.internal("worker.png"));
+            for (int i = 0; i < 2; i++){
+                checker = IconLeft[i].IsTouched(Gdx.input.getX(),Math.abs(Gdx.input.getY()-Gdx.graphics.getHeight()), Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+                if(checker){
+                    for (int j = 0; j < 2;j++){
+                        if(j == i){
+                            continue;
+                        }else{
+                            IconLeft[j].Reset();
+                        }
+                    }
+                    break;
                 }
+                str = "INPUTX : "+Gdx.input.getX()+"INPUTY : "+ Gdx.input.getY()+"WIDTH : "+ Gdx.graphics.getWidth()+"HEIGHT : "+ Gdx.graphics.getHeight();
             }
+
+        }
+        for (int i = 0; i < 2; i++){
+            batch.draw(IconLeft[i].icon, IconLeft[i].x, IconLeft[i].y, IconLeft[i].width, IconLeft[i].height);
         }
 
         batch.end();
