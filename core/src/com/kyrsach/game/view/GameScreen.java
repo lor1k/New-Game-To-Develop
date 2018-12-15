@@ -143,20 +143,26 @@ public class GameScreen implements Screen {
         if(Gdx.input.justTouched()){
             if (Gdx.input.getX() < (Gdx.graphics.getWidth()/2) && Gdx.input.getX() > sidebarleft.getWidth()){
                 if(IconLeft[1].selected) // спавн для первого игрока
-                for (int i = 0; i < 3; i++){
-                    if (units_worker[i].isdied){
-                        units_worker[i] = new Worker(sidebarleft.getWidth(),Gdx.graphics.getHeight()- Gdx.input.getY(),70,70, "dwarfSpriteWalk.png", "dwarfSpriteGetherT.png");
-                        units_worker[i].isdied = false;
-                        break;
+                    for (int i = 0; i < 3; i++){
+                        if (units_worker[i].isdied){
+                            if (players[0].coins >= 5) {
+                                players[0].coins -= 5;
+                                units_worker[i] = new Worker(sidebarleft.getWidth(), Gdx.graphics.getHeight() - Gdx.input.getY(), 70, 70, "dwarfSpriteWalk.png", "dwarfSpriteGetherT.png");
+                                units_worker[i].isdied = false;
+                            }
+                            break;
+                        }
                     }
-                }
             }else{ // спавн для второго игрока
                 if (Gdx.input.getX() > (Gdx.graphics.getWidth()/2) && Gdx.input.getX() < Gdx.graphics.getWidth() - sidebarright.getWidth()) {
                     if (IconRight[1].selected)
                         for (int i = 0; i < 3; i++) {
                             if (units_worker_right[i].isdied) {
-                                units_worker_right[i] = new Worker(Gdx.graphics.getWidth() - sidebarright.getWidth() - 65, Gdx.graphics.getHeight() - Gdx.input.getY(), 70, 70, "dwarfSpriteWalkReverse.png", "dwarfSpriteGetherReverse.png");
-                                units_worker_right[i].isdied = false;
+                                if (players[1].coins >= 5) {
+                                    players[1].coins -= 5;
+                                    units_worker_right[i] = new Worker(Gdx.graphics.getWidth() - sidebarright.getWidth() - 65, Gdx.graphics.getHeight() - Gdx.input.getY(), 70, 70, "dwarfSpriteWalkReverse.png", "dwarfSpriteGetherReverse.png");
+                                    units_worker_right[i].isdied = false;
+                                }
                                 break;
                             }
                         }
