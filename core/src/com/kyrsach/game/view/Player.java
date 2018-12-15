@@ -19,4 +19,8 @@ public class Player {
     public  void ShowBalance(){
 
     }
+    public String strBalance(){
+        String temp = ""+coins;
+        return  temp;
+    }
 }

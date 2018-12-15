@@ -77,7 +77,10 @@ public class GameScreen implements Screen {
         IconRight[0] = new Icon(Gdx.graphics.getWidth() - Gdx.graphics.getWidth()/100f*1f - warrior.getWidth(), Gdx.graphics.getHeight()/100f*30f, worker.getWidth(), worker.getHeight(), "worker_right.png", "worker_right_selected.png");
         IconRight[1] = new Icon(Gdx.graphics.getWidth() - Gdx.graphics.getWidth()/100f*1f - worker.getWidth(), Gdx.graphics.getHeight()/100f*50f, warrior.getWidth(), warrior.getHeight(), "warrior_right.png", "warrior_right_selected.png");
         players = new Player[2];
+
         BalanceFont = new BitmapFont();
+        BalanceFont.setColor(1,1,1, 1);
+        BalanceFont.getData().scale(2);
 
         players[0] = new Player(0,0);
         players[1] = new Player(0,0);
@@ -114,6 +117,8 @@ public class GameScreen implements Screen {
         batch.draw(sidebarleft, 0,0);
         batch.draw(sidebarright,Gdx.graphics.getWidth() - sidebarright.getWidth(),0);
         FontRed1.draw(batch, str, 10, 20);
+        BalanceFont.draw(batch, players[0].strBalance(), 15, Gdx.graphics.getHeight() - 21);
+        BalanceFont.draw(batch, players[1].strBalance(), Gdx.graphics.getWidth() - 75, Gdx.graphics.getHeight() - 21);
         for (int i = 0; i < a; i++){// Тут до count в оригинале
             if (trees[i] != null) {
                 batch.draw(tree, trees[i].getX(), trees[i].getY(), tree_width, tree_height);
