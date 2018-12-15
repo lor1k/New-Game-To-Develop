@@ -13,6 +13,7 @@ public class Worker extends Unit {
     public int GetherCounter = 0;
     public boolean TreeIsAlive;
     public int targetedTree;
+    public boolean withTree = false;
 
     Animation GetherAnimation; // #3
     Texture GetherSheet; // #4
@@ -60,6 +61,7 @@ public class Worker extends Unit {
         finded = obj[min];
     }
     public boolean Move(SpriteBatch batch){
+        withTree = true;
         if (x < finded.x - 40 && (finded.x - x) > 0){
             x+=speed;
             MoveAnim(batch);

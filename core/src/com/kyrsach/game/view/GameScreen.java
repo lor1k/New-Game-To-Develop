@@ -208,11 +208,13 @@ public class GameScreen implements Screen {
                     units_worker[i].Init("dwarfSpriteWalkReverse.png");
                     units_worker[i].reverseinit = true;
                 }
-                if(units_worker[i].MoveBack(batch)){ // принес дерево
-                    players[0].coins+=20;
-                    units_worker[i].isdied = true;
+                if(units_worker[i].MoveBack(batch)) { // принес дерево
+                    if (units_worker[i].withTree) {
+                        units_worker[i].withTree = false;
+                        players[0].coins += 20;
+                        units_worker[i].isdied = true;
+                    }
                 }
-
             }
         }
         ///////////////////////////////
@@ -238,11 +240,13 @@ public class GameScreen implements Screen {
                     units_worker_right[i].Init("dwarfSpriteWalk.png");
                     units_worker_right[i].reverseinit = true;
                 }
-                if(units_worker_right[i].MoveBack(batch)){ // принес дерево
-                    players[1].coins+=20;
-                    units_worker_right[i].isdied = true;
+                if(units_worker_right[i].MoveBack(batch)) { // принес дерево
+                    if (units_worker_right[i].withTree) {
+                        units_worker_right[i].withTree = false;
+                        players[1].coins += 20;
+                        units_worker_right[i].isdied = true;
+                    }
                 }
-
             }
         }
         batch.end();
