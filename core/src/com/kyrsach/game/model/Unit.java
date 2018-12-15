@@ -16,19 +16,19 @@ public class Unit extends GameObject{
     private int rows;
 
 
-    Animation walkAnimation; // #3
-    Texture walkSheet; // #4
-    TextureRegion[] walkFrames; // #5
-    TextureRegion currentFrame; // #7
+    Animation walkAnimation;
+    Texture walkSheet;
+    TextureRegion[] walkFrames;
+    TextureRegion currentFrame;
 
 
-    float stateTime; // #8
+    float stateTime;
     public Unit(){
 
     }
     public void Init(String path){
-        walkSheet = new Texture(Gdx.files.internal(path)); // #9
-        TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/cols, walkSheet.getHeight()/rows); // #10
+        walkSheet = new Texture(Gdx.files.internal(path));
+        TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/cols, walkSheet.getHeight()/rows);
         walkFrames = new TextureRegion[cols * rows];
         int index = 0;
         for (int i = 0; i < rows; i++) {
@@ -37,7 +37,7 @@ public class Unit extends GameObject{
             }
         }
         walkAnimation = new Animation(0.06f, walkFrames);
-        stateTime = 0f; // #13
+        stateTime = 0f;
     }
     public Unit(float x, float y, float width, float height, int cols, int rows, float speed) {
         super(x, y, width, height);
@@ -49,8 +49,8 @@ public class Unit extends GameObject{
 
     }
     public void MoveAnim(SpriteBatch batch) {
-        stateTime += Gdx.graphics.getDeltaTime(); // #15
-        currentFrame = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true); // #16
+        stateTime += Gdx.graphics.getDeltaTime();
+        currentFrame = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true);
 
         batch.draw(currentFrame, x, y, width, height);
 
