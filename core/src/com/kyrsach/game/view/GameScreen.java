@@ -130,7 +130,6 @@ public class GameScreen implements Screen {
                         trees[i] = null;
                     }
                 }
-
             }
         }
 
