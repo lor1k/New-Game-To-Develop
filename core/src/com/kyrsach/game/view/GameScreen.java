@@ -43,6 +43,7 @@ public class GameScreen implements Screen {
     private Player[] players;
     private int interval;
     private int coinCounter;
+    private int treeCounter;
     private Music st;
     private Worker[] units_worker;
     private Worker[] units_worker_right;
@@ -52,6 +53,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         interval = 3;
+        treeCounter = 0;
         left_spawn_border = Gdx.graphics.getWidth()/100f*30f;
         right_spawn_border = Gdx.graphics.getWidth() - left_spawn_border*2;
         top_spawn_border = Gdx.graphics.getHeight();
@@ -132,6 +134,16 @@ public class GameScreen implements Screen {
                 }
             }
         }
+        if (treeCounter > ((int)(30/delta))){
+            for (int j = 0; j < a;j++){
+                if (trees[j] == null){
+                    trees[j] = new Tree(left_spawn_border+(float)Math.random()*(right_spawn_border - tree_width),bottom_spawn_border+(float)Math.random()*(top_spawn_border - tree_height),tree_width, tree_height);
+                    break;
+                }
+            }
+            treeCounter = 0;
+        }
+        treeCounter++;
 
         if(a == count-1){
             a = count - 1;
