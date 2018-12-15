@@ -15,10 +15,10 @@ public class Worker extends Unit {
     public int targetedTree;
     public boolean withTree = false;
 
-    Animation GetherAnimation; // #3
-    Texture GetherSheet; // #4
-    TextureRegion[] GetherFrames; // #5
-    TextureRegion CurrentGetherFrame; // #7
+    Animation GetherAnimation;
+    Texture GetherSheet;
+    TextureRegion[] GetherFrames;
+    TextureRegion CurrentGetherFrame;
 
     public Worker(){
 
@@ -28,8 +28,8 @@ public class Worker extends Unit {
         GetherCounter = 0;
         Init(path);
         this.pathGether = Gether;
-        GetherSheet = new Texture(Gdx.files.internal(pathGether)); // #9
-        TextureRegion[][] tmp = TextureRegion.split(GetherSheet, GetherSheet.getWidth()/7, GetherSheet.getHeight()/1); // #10
+        GetherSheet = new Texture(Gdx.files.internal(pathGether));
+        TextureRegion[][] tmp = TextureRegion.split(GetherSheet, GetherSheet.getWidth()/7, GetherSheet.getHeight()/1);
         GetherFrames = new TextureRegion[1 * 7];
         int index = 0;
         for (int i = 0; i < 1; i++) {
@@ -40,14 +40,14 @@ public class Worker extends Unit {
         GetherAnimation = new Animation(0.06f, GetherFrames);
 
     }
-    public void SearchPass(GameObject[] obj){
+    public int SearchPass(GameObject[] obj){
         int min = 0;
         float distance=999999;
         float tempX;
         float tempY;
         float tempdist;
         for(int i = 0; i < obj.length; i++){
-            if(obj[i] != null) {
+            if(obj[i] != null && ((Tree)obj[i]).spawned && !((Tree)obj[i]).selected) {
                 tempX = Math.abs(obj[i].x - x);
                 tempY = Math.abs(obj[i].y - y);
                 tempdist = tempX + tempY;
@@ -59,6 +59,7 @@ public class Worker extends Unit {
         }
         targetedTree = min;
         finded = obj[min];
+        return min;
     }
     public boolean Move(SpriteBatch batch){
         withTree = true;
