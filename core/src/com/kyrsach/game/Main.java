@@ -4,6 +4,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.kyrsach.game.view.GameScreen;
 
 
@@ -21,5 +22,6 @@ public class Main extends Game {
         }
 		gameScreen = new GameScreen();
 		setScreen(gameScreen);
-	}
+
+    }
 }

@@ -13,7 +13,9 @@ public abstract class GameObject {
     public float health;
 
     Sprite object;
+    public GameObject(){
 
+    }
     public GameObject(float x, float y, float width, float height){
         this.x = x;
         this.y = y;
@@ -32,10 +34,7 @@ public abstract class GameObject {
     public void setHeight(float height){this.height = height;}
     public void setHealth(float health){this.health = health;}
 
-    public void move(float x,float y){
-        this.x = x;
-        this.y = y;
-    }
+
 
     public void draw(SpriteBatch batch){
         object.setBounds(x,y,width,height);
