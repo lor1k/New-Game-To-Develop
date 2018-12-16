@@ -121,11 +121,7 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(texture, 0, 0);
-        batch.draw(sidebarleft, 0,0);
-        batch.draw(sidebarright,Gdx.graphics.getWidth() - sidebarright.getWidth(),0);
         FontRed1.draw(batch, str, 10, 20);
-        BalanceFont.draw(batch, players[0].strBalance(), 15, Gdx.graphics.getHeight() - 21);
-        BalanceFont.draw(batch, players[1].strBalance(), Gdx.graphics.getWidth() - 75, Gdx.graphics.getHeight() - 21);
         for (int i = 0; i < a; i++){// Тут до count в оригинале
             if (trees[i] != null) {
                 if (!((Tree) trees[i]).despawned) {
@@ -211,12 +207,6 @@ public class GameScreen implements Screen {
                 }
             }
         }
-        for (int i = 0; i < 2; i++){
-            batch.draw(IconLeft[i].icon, IconLeft[i].x, IconLeft[i].y, IconLeft[i].width, IconLeft[i].height);
-        }
-        for (int i = 0; i < 2; i++){
-            batch.draw(IconRight[i].icon, IconRight[i].x, IconRight[i].y, IconRight[i].width, IconRight[i].height);
-        }
         for (int i = 0;i < 3;i++){
             if (!units_worker[i].TreeIsAlive) {
                 if (!units_worker[i].isdied) {
@@ -294,6 +284,16 @@ public class GameScreen implements Screen {
                 }
             }
         }
+        batch.draw(sidebarleft, 0,0);
+        batch.draw(sidebarright,Gdx.graphics.getWidth() - sidebarright.getWidth(),0);
+        for (int i = 0; i < 2; i++){
+            batch.draw(IconLeft[i].icon, IconLeft[i].x, IconLeft[i].y, IconLeft[i].width, IconLeft[i].height);
+        }
+        for (int i = 0; i < 2; i++){
+            batch.draw(IconRight[i].icon, IconRight[i].x, IconRight[i].y, IconRight[i].width, IconRight[i].height);
+        }
+        BalanceFont.draw(batch, players[0].strBalance(), 15, Gdx.graphics.getHeight() - 21);
+        BalanceFont.draw(batch, players[1].strBalance(), Gdx.graphics.getWidth() - 75, Gdx.graphics.getHeight() - 21);
         batch.end();
 
         coinCounter++;
