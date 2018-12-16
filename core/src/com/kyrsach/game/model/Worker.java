@@ -14,6 +14,7 @@ public class Worker extends Unit {
     public boolean TreeIsAlive;
     public int targetedTree;
     public boolean withTree = false;
+    public int HitCounter = 0;
 
     Animation GetherAnimation;
     Texture GetherSheet;

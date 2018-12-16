@@ -3,6 +3,7 @@ package com.kyrsach.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -45,6 +46,8 @@ public class GameScreen implements Screen {
     private int coinCounter;
     private int treeCounter;
     private Music st;
+    private static Sound AxeHit;
+
     private Worker[] units_worker;
     private Worker[] units_worker_right;
 
@@ -53,6 +56,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         interval = 3;
+
         treeCounter = 0;
         left_spawn_border = Gdx.graphics.getWidth()/100f*30f;
         right_spawn_border = Gdx.graphics.getWidth() - left_spawn_border*2;
@@ -102,6 +106,7 @@ public class GameScreen implements Screen {
         //FontRed1;
         //AUDIO
         st = Gdx.audio.newMusic(Gdx.files.internal("st.mp3"));
+        AxeHit = Gdx.audio.newSound(Gdx.files.internal("HitOfAxe0.2sec.mp3"));
         st.setLooping(true);
         st.setVolume(0.2f);
         st.play();
@@ -223,6 +228,10 @@ public class GameScreen implements Screen {
                         if (units_worker[i].Move(batch)) {
                             units_worker[i].GetherCounter++;
                             units_worker[i].Gether(batch);
+                            if (units_worker[i].HitCounter++ > ((int)(0.4/delta))){
+                                AxeHit.setVolume(AxeHit.play(),0.2f);
+                                units_worker[i].HitCounter = 0;
+                            }
                             if (units_worker[i].GetherCounter > ((int)(5/delta))){
                                 units_worker[i].TreeIsAlive = true;
                                 if (trees[units_worker[i].targetedTree] != null) {
@@ -258,6 +267,10 @@ public class GameScreen implements Screen {
                         if (units_worker_right[i].Move(batch)) {
                             units_worker_right[i].GetherCounter++;
                             units_worker_right[i].Gether(batch);
+                            if (units_worker_right[i].HitCounter++ > ((int)(0.4/delta))){
+                                AxeHit.setVolume(AxeHit.play(),0.2f);
+                                units_worker_right[i].HitCounter = 0;
+                            }
                             if (units_worker_right[i].GetherCounter > ((int)(5/delta))){
                                 units_worker_right[i].TreeIsAlive = true;
                                 if (trees[units_worker_right[i].targetedTree] != null) {
@@ -327,5 +340,7 @@ public class GameScreen implements Screen {
         FontRed1.dispose();
         texture.dispose();
         tree.dispose();
+        st.dispose();
+        AxeHit.dispose();
     }
 }
