@@ -137,7 +137,6 @@ public class GameScreen implements Screen {
                         trees[i] = null;
                     }
                 }
-
             }
         }
         if (treeCounter > ((int)(30/delta))){
